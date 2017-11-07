@@ -1,15 +1,16 @@
 let { Component } = React;
 let Slide = require('../component/slide/slide.js')
-let Content = require('../component/content/content.js')
+let Home = require('../page/home/home.js')
 class App extends Component {
   constructor(props) {
     super(props)
   }
   render(){
+    console.log(this.props)
     return (
       <div className = "app">
       <Slide></Slide>
-      <Content></Content>
+      {this.props.children}
       </div>
     )
   }

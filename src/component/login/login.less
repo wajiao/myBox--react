@@ -1,5 +1,18 @@
+.wcenter(@width:auto,@mt:0,@mb:@mt){
+  width: @width;
+  margin:@mt auto @mb;
+}
 .login{
   background: #fff;
-  height: 200px;
-  margin-bottom: 20px;
+  .wcenter(100px,20px);
+  text-align: center;
+  .avatar{
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+    border-radius: 50px;
+  }
+  .user{
+    font-size: 26px;
+  }
 }

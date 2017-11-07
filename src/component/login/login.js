@@ -6,7 +6,10 @@ class Login extends Component{
   }
   render(){
     return (
-      <div className = "login">login</div>
+      <div className = "login">
+        <div className = "avatar"></div>
+        <div className = "user">user</div>
+      </div>
     )
   }
 }
