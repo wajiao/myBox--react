@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -202,7 +202,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(5);
+var	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -524,8 +524,57 @@ function updateLink (link, options, obj) {
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _React = React,
+    Component = _React.Component;
+
+__webpack_require__(18);
+
+var Home = function (_Component) {
+  _inherits(Home, _Component);
+
+  function Home(props) {
+    _classCallCheck(this, Home);
+
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+  }
+
+  _createClass(Home, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        { className: "home" },
+        React.createElement(
+          "h1",
+          null,
+          "Home"
+        )
+      );
+    }
+  }]);
+
+  return Home;
+}(Component);
+
+module.exports = Home;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 //base style
-__webpack_require__(3);
+__webpack_require__(4);
 
 //起步文件bootstrap
 //配置文件
@@ -536,18 +585,18 @@ var _ReactDOM = ReactDOM,
     render = _ReactDOM.render;
 
 
-var routes = __webpack_require__(6);
+var routes = __webpack_require__(7);
 
 render(routes, app);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -572,7 +621,7 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -586,7 +635,7 @@ exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  list-style: none;\n
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -681,7 +730,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -692,10 +741,11 @@ var _ReactRouter = ReactRouter,
     Route = _ReactRouter.Route,
     IndexRoute = _ReactRouter.IndexRoute;
 
-var App = __webpack_require__(7);
-var Home = __webpack_require__(17);
-var List = __webpack_require__(20);
-var Share = __webpack_require__(23);
+var App = __webpack_require__(8);
+var Home = __webpack_require__(2);
+var List = __webpack_require__(24);
+var Share = __webpack_require__(27);
+var Search = __webpack_require__(30);
 
 var routes = React.createElement(
   Router,
@@ -704,14 +754,16 @@ var routes = React.createElement(
     Route,
     { path: '/', component: App },
     React.createElement(IndexRoute, { component: Home }),
+    React.createElement(Route, { path: 'home', component: Home }),
     React.createElement(Route, { path: 'list', component: List }),
-    React.createElement(Route, { path: 'share', component: Share })
+    React.createElement(Route, { path: 'share', component: Share }),
+    React.createElement(Route, { path: 'search', component: Search })
   )
 );
 module.exports = routes;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -728,8 +780,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-var Slide = __webpack_require__(8);
-var Home = __webpack_require__(17);
+var Slide = __webpack_require__(9);
+var Home = __webpack_require__(2);
+var SearchBar = __webpack_require__(20);
+var Player = __webpack_require__(23);
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -748,7 +802,9 @@ var App = function (_Component) {
         'div',
         { className: 'app' },
         React.createElement(Slide, null),
-        this.props.children
+        this.props.children,
+        React.createElement(SearchBar, null),
+        React.createElement(Player, null)
       );
     }
   }]);
@@ -759,7 +815,7 @@ var App = function (_Component) {
 module.exports = App;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -773,12 +829,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-__webpack_require__(9);
+__webpack_require__(10);
 var _React = React,
     Component = _React.Component;
 
-var Login = __webpack_require__(11);
-var Menu = __webpack_require__(14);
+var Login = __webpack_require__(12);
+var Menu = __webpack_require__(15);
 
 var Slide = function (_Component) {
   _inherits(Slide, _Component);
@@ -807,13 +863,13 @@ var Slide = function (_Component) {
 module.exports = Slide;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(10);
+var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -838,7 +894,7 @@ if(false) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -852,7 +908,7 @@ exports.push([module.i, ".slide {\n  width: 30%;\n  background: #eee;\n  height:
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -869,7 +925,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(12);
+__webpack_require__(13);
 
 var Login = function (_Component) {
   _inherits(Login, _Component);
@@ -902,13 +958,13 @@ var Login = function (_Component) {
 module.exports = Login;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(13);
+var content = __webpack_require__(14);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -933,7 +989,7 @@ if(false) {
 }
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -947,7 +1003,7 @@ exports.push([module.i, ".login {\n  background: #fff;\n  width: 100px;\n  margi
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -964,7 +1020,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(15);
+__webpack_require__(16);
 
 var Menu = function (_Component) {
   _inherits(Menu, _Component);
@@ -1031,13 +1087,13 @@ var Menu = function (_Component) {
 module.exports = Menu;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(16);
+var content = __webpack_require__(17);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1062,7 +1118,7 @@ if(false) {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1074,55 +1130,6 @@ exports.push([module.i, ".menu {\n  background: #fff;\n  height: 470px;\n  width
 
 // exports
 
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _React = React,
-    Component = _React.Component;
-
-__webpack_require__(18);
-
-var Home = function (_Component) {
-  _inherits(Home, _Component);
-
-  function Home(props) {
-    _classCallCheck(this, Home);
-
-    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-  }
-
-  _createClass(Home, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        { className: "home" },
-        React.createElement(
-          "h1",
-          null,
-          "Home"
-        )
-      );
-    }
-  }]);
-
-  return Home;
-}(Component);
-
-module.exports = Home;
 
 /***/ }),
 /* 18 */
@@ -1189,6 +1196,228 @@ var _React = React,
 
 __webpack_require__(21);
 
+var SearchBar = function (_Component) {
+  _inherits(SearchBar, _Component);
+
+  function SearchBar() {
+    _classCallCheck(this, SearchBar);
+
+    return _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).apply(this, arguments));
+  }
+
+  _createClass(SearchBar, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        { className: "searchbar" },
+        React.createElement("input", { type: "text", placeholder: "search" })
+      );
+    }
+  }]);
+
+  return SearchBar;
+}(Component);
+
+module.exports = SearchBar;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(22);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./searchbar.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./searchbar.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".searchbar {\n  width: 70%;\n  height: 60px;\n  position: fixed;\n  top: 0px;\n  left: 30%;\n  background: rgba(255, 255, 255, 0.5);\n}\n.searchbar input {\n  width: 400px;\n  margin: 5px auto 5px;\n  height: 40px;\n  line-height: 40px;\n  margin-left: 130px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _React = React,
+    Component = _React.Component;
+
+__webpack_require__(33);
+
+var Player = function (_Component) {
+  _inherits(Player, _Component);
+
+  function Player(props) {
+    _classCallCheck(this, Player);
+
+    var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+
+    _this.state = {
+      musicState: "off",
+      musicIndex: 1
+    };
+    return _this;
+  }
+  //  play/pause
+  // have  bug dobble
+
+
+  _createClass(Player, [{
+    key: "musicPlayTogo",
+    value: function musicPlayTogo() {
+      var index = this.state.musicIndex;
+      var val = this.refs[index];
+
+      if (this.state.musicState === "off") {
+        this.setState({
+          musicState: "on"
+        });
+        val.play();
+      } else if (this.state.musicState === "on") {
+        this.setState({
+          musicState: "off"
+        });
+        val.pause();
+      }
+    }
+  }, {
+    key: "last",
+    value: function last() {
+      var index = this.state.musicIndex;
+      var lastVal = this.refs[index];
+      lastVal.pause();
+      index = index <= 0 ? 0 : --index;
+      var currentVal = this.refs[index];
+      currentVal.load();
+      currentVal.play();
+      this.setState({
+        musicState: "off",
+        musicIndex: index
+      });
+    }
+  }, {
+    key: "next",
+    value: function next() {
+      var index = this.state.musicIndex;
+      var lastVal = this.refs[index];
+      lastVal.pause();
+      index = index >= 3 ? 3 : ++index;
+      var currentVal = this.refs[index];
+      currentVal.load();
+      currentVal.play();
+      this.setState({
+        musicState: "off",
+        musicIndex: index
+      });
+    }
+  }, {
+    key: "addAudio",
+    value: function addAudio() {
+      var data = ["cut.mp3", "beautiful.mp3", "nervous.mp3"];
+      return data.map(function (item, index) {
+        var address = "mp3/" + item;
+        return React.createElement("audio", { key: index, ref: index, src: address });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      //考虑怎么去get数据，怎么去load合适些
+      //怎么保持数组持有3个数据
+      // let src = ["cut.mp3","beautiful.mp3","nervous.mp3"]
+      //原生的样式，iq能不能用
+      // $scope.rate = ($scope.media[$scope.index].currentTime /$scope.media[$scope.index].duration
+      var index = 0;
+      return React.createElement(
+        "div",
+        { className: "player" },
+        this.addAudio(),
+        React.createElement(
+          "div",
+          { onClick: this.musicPlayTogo.bind(this) },
+          "player"
+        ),
+        React.createElement(
+          "div",
+          { onClick: this.last.bind(this) },
+          "last"
+        ),
+        React.createElement(
+          "div",
+          { onClick: this.next.bind(this) },
+          "next"
+        )
+      );
+    }
+  }]);
+
+  return Player;
+}(Component);
+
+module.exports = Player;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _React = React,
+    Component = _React.Component;
+
+__webpack_require__(25);
+
 var List = function (_Component) {
   _inherits(List, _Component);
 
@@ -1219,13 +1448,13 @@ var List = function (_Component) {
 module.exports = List;
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(22);
+var content = __webpack_require__(26);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1250,7 +1479,7 @@ if(false) {
 }
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1264,7 +1493,7 @@ exports.push([module.i, ".list {\n  width: 70%;\n  background: #ccc;\n  height: 
 
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1281,7 +1510,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(24);
+__webpack_require__(28);
 
 var Share = function (_Component) {
   _inherits(Share, _Component);
@@ -1313,13 +1542,13 @@ var Share = function (_Component) {
 module.exports = Share;
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(25);
+var content = __webpack_require__(29);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1344,7 +1573,7 @@ if(false) {
 }
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1353,6 +1582,145 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 // module
 exports.push([module.i, ".share {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _React = React,
+    Component = _React.Component;
+
+__webpack_require__(31);
+
+var Search = function (_Component) {
+  _inherits(Search, _Component);
+
+  function Search(props) {
+    _classCallCheck(this, Search);
+
+    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+  }
+
+  _createClass(Search, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        { className: "search" },
+        React.createElement(
+          "div",
+          null,
+          "Search"
+        )
+      );
+    }
+  }]);
+
+  return Search;
+}(Component);
+
+module.exports = Search;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(32);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".search {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(34);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./player.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./player.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".player {\n  width: 100%;\n  position: fixed;\n  bottom: 0px;\n  left: 0px;\n  background: rgba(0, 0, 0, 0.2);\n  height: 80px;\n}\n", ""]);
 
 // exports
 

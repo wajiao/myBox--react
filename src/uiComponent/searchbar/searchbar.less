@@ -1,0 +1,22 @@
+.hcenter(@h:auto){
+	height: @h;
+	line-height:@h;
+}
+.wcenter(@width:0,@mt:0,@mb:@mt){
+  width: @width;
+  margin:@mt auto @mb;
+}
+.searchbar{
+  width: 70%;
+  height: 60px;
+  position: fixed;
+  top:0px;
+  left: 30%;
+  background: rgba(255,255,255,0.5);
+  input{
+    //没有居中是什么问题
+    .wcenter(400px,5px);
+    .hcenter(40px);
+    margin-left: 130px;
+  }
+}
