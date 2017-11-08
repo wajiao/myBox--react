@@ -6,10 +6,9 @@ let Player = require('../component/player/player.js')
 class App extends Component {
   constructor(props) {
     super(props)
+    this.state = {}
   }
-
   render(){
-    console.log(this.props)
     return (
       <div className = "app">
       <Slide></Slide>
@@ -20,4 +19,5 @@ class App extends Component {
     )
   }
 }
+
 module.exports = App;

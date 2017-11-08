@@ -1,6 +1,7 @@
 let { Component }  = React;
+let Service = require('../../service/service.js');
 require('./search.less')
-class Search extends Component{
+class Search extends Service{
   constructor(props) {
     super(props)
   }
