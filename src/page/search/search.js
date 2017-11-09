@@ -1,9 +1,8 @@
 let { Component }  = React;
-let Service = require('../../service/service.js');
 require('./search.less')
-class Search extends Service{
-  constructor(props) {
-    super(props)
+class Search extends Component{
+  constructor(props,msg){
+    super(props,msg);
   }
   render(){
     return (
@@ -12,6 +11,10 @@ class Search extends Service{
       </div>
     )
   }
+  componentDidMount(){
+  this.props.store.on("hi",function(res){
+    console.log(res)
+  })
+  }
 }
-
 module.exports = Search;

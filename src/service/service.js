@@ -1,29 +1,23 @@
 let { Component } = React;
-class Service extends Component{
-  constructor(props){
+class Service extends Component {
+  constructor(props) {
     super(props);
     this.msg = {};
   }
   on(type,fn){
-    console.log("on");
     if(this.msg[type]){
       this.msg[type].push(fn)
     }else{
       this.msg[type] = [fn]
     }
-    console.log(this.msg)
   }
-  touch(type){
-    console.log("trigger")
-    // let arg = [].slice.call(arguments,1)
-    console.log(this.msg)
+  trigger(type,info){
     if(this.msg[type]){
-      let msgArr = Array.from(this.msg[type])
-      console.log(msgArr)
-      for(let i = 0; i < msgArr.length; i++){
-        msgArr[i]();
+      let arrFn = Array.from(this.msg[type]);
+      for(let i = 0 ;i <arrFn.length; i++){
+        this.msg[type][i](info)
       }
     }
   }
 }
-module.exports = Service
+module.exports = Service;
