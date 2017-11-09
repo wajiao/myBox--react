@@ -68,29 +68,31 @@ class Player extends Component {
     //原生的样式，iq能不能用
     // $scope.rate = ($scope.media[$scope.index].currentTime /$scope.media[$scope.index].duration
     let index = 0;
-    let playerStyle = {
-      float:"left",
-      width:"40px",
-      height:"40px",
-      backgroundColor:"#000",
-      marginLeft:"20px",
-      color:'#fff',
+    let playerStyle = {backgroundImage:"url("+"img/icon/player.png" +")"}
+    if(this.state.musicState=="off"){
+       playerStyle = {backgroundImage:"url("+"img/icon/player.png" +")"}
+    }else{
+       playerStyle = {backgroundImage:"url("+"img/icon/parse.png" +")"}
+    }
+
+    let lastStyle = {
+      backgroundImage:"url("+"img/icon/last.png" +")",
+    }
+    let nextStyle = {
+      backgroundImage:"url("+"img/icon/next.png" +")",
     }
     let barStyle = {
-      float:"left",
       width:(this.state.rate *800)+"px",
-      height:"40px",
-      backgroundColor:"#000",
-      marginLeft:"20px",
+
     }
     console.log(barStyle)
     return (
       <div className = "player">
         {this.addAudio()}
-        <div style = {playerStyle} onClick = {this.musicPlayTogo.bind(this)}>player</div>
-        <div style = {playerStyle} onClick = {this.last.bind(this)}>last</div>
-        <div style = {playerStyle} onClick = {this.next.bind(this)}>next</div>
-        <div style = {barStyle} onClick = {this.next.bind(this)}></div>
+        <div className = "last" style = {lastStyle} onClick = {this.last.bind(this)}></div>
+        <div className = "pause" style = {playerStyle} onClick = {this.musicPlayTogo.bind(this)}></div>
+        <div className = "next" style = {nextStyle} onClick = {this.next.bind(this)}></div>
+        <div className = "bar" style = {barStyle} onClick = {this.next.bind(this)}></div>
       </div>
     )
   }

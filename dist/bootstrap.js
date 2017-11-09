@@ -532,6 +532,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//配置数据
+var CONF = __webpack_require__(37);
 var _React = React,
     Component = _React.Component;
 
@@ -543,19 +545,93 @@ var Home = function (_Component) {
   function Home(props) {
     _classCallCheck(this, Home);
 
-    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+    _this.state = {
+      song: CONF.SONG,
+      album: CONF.ABLUM,
+      hotlist: CONF.HOTLIST
+    };
+    return _this;
   }
 
   _createClass(Home, [{
+    key: "createList",
+    value: function createList(data) {
+      return data.map(function (obj, index) {
+        return React.createElement(
+          "li",
+          { key: index },
+          React.createElement(
+            "div",
+            { className: "img" },
+            React.createElement("img", { src: "img/home/" + obj.url })
+          ),
+          React.createElement(
+            "span",
+            { className: "name" },
+            obj.name
+          ),
+          React.createElement(
+            "span",
+            { className: "singer" },
+            obj.singer
+          )
+        );
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
         "div",
         { className: "home" },
         React.createElement(
-          "h1",
-          null,
-          "Home"
+          "div",
+          { className: "banner" },
+          React.createElement("img", { src: "img/home/banner_01.jpg" })
+        ),
+        React.createElement(
+          "section",
+          { className: "newSong" },
+          React.createElement(
+            "h2",
+            null,
+            " \u65B0\u6B4C\u9996\u53D1"
+          ),
+          React.createElement(
+            "ul",
+            { className: "song" },
+            this.createList(this.state.song)
+          )
+        ),
+        React.createElement(
+          "section",
+          { className: "newAlbum" },
+          React.createElement(
+            "h2",
+            null,
+            " \u4E13\u8F91\u9996\u53D1"
+          ),
+          React.createElement(
+            "ul",
+            { className: "album" },
+            this.createList(this.state.album)
+          )
+        ),
+        React.createElement(
+          "section",
+          { className: "hotList" },
+          React.createElement(
+            "h2",
+            null,
+            " \u70ED\u95E8\u63A8\u8350"
+          ),
+          React.createElement(
+            "ul",
+            { className: "hotlist" },
+            this.createList(this.state.hotlist)
+          )
         )
       );
     }
@@ -581,46 +657,81 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+__webpack_require__(21);
 var _React = React,
     Component = _React.Component;
 
-var Service = function (_Component) {
-  _inherits(Service, _Component);
+var Search = function (_Component) {
+  _inherits(Search, _Component);
 
-  function Service(props) {
-    _classCallCheck(this, Service);
+  function Search(props, msg) {
+    _classCallCheck(this, Search);
 
-    var _this = _possibleConstructorReturn(this, (Service.__proto__ || Object.getPrototypeOf(Service)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props, msg));
 
-    _this.msg = {};
+    _this.state = {
+      listData: []
+    };
     return _this;
   }
 
-  _createClass(Service, [{
-    key: "on",
-    value: function on(type, fn) {
-      if (this.msg[type]) {
-        this.msg[type].push(fn);
-      } else {
-        this.msg[type] = [fn];
-      }
+  _createClass(Search, [{
+    key: "createList",
+    value: function createList() {
+      return this.state.listData.map(function (obj, index) {
+        return React.createElement(
+          "li",
+          { key: index },
+          React.createElement(
+            "div",
+            { className: "img" },
+            React.createElement("img", { src: "img/playerlist/" + obj.url })
+          ),
+          React.createElement(
+            "div",
+            { className: "title" },
+            obj.title
+          ),
+          React.createElement(
+            "div",
+            { className: "publisher" },
+            obj.publisher
+          )
+        );
+      });
     }
   }, {
-    key: "trigger",
-    value: function trigger(type, info) {
-      if (this.msg[type]) {
-        var arrFn = Array.from(this.msg[type]);
-        for (var i = 0; i < arrFn.length; i++) {
-          this.msg[type][i](info);
-        }
-      }
+    key: "render",
+    value: function render() {
+
+      return React.createElement(
+        "div",
+        { className: "search" },
+        React.createElement(
+          "div",
+          null,
+          "Search"
+        ),
+        this.createList()
+      );
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.store.on("hi", function (res) {
+        _this2.setState({
+          listData: res
+        });
+      });
     }
   }]);
 
-  return Service;
+  return Search;
 }(Component);
 
-module.exports = Service;
+module.exports = Search;
 
 /***/ }),
 /* 4 */
@@ -799,9 +910,9 @@ var _ReactRouter = ReactRouter,
 
 var App = __webpack_require__(9);
 var Home = __webpack_require__(2);
-var List = __webpack_require__(27);
-var Share = __webpack_require__(30);
-var Search = __webpack_require__(33);
+var List = __webpack_require__(30);
+var Share = __webpack_require__(33);
+var Search = __webpack_require__(3);
 
 var routes = React.createElement(
   Router,
@@ -838,10 +949,10 @@ var _React = React,
 
 var Slide = __webpack_require__(10);
 var Home = __webpack_require__(2);
-var Search = __webpack_require__(33);
-var SearchBar = __webpack_require__(21);
-var Player = __webpack_require__(24);
-var Service = __webpack_require__(3);
+var Search = __webpack_require__(3);
+var SearchBar = __webpack_require__(23);
+var Player = __webpack_require__(26);
+var Service = __webpack_require__(29);
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -859,13 +970,14 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      //{this.props.children}
+      React.createElement(Search, { store: this.store });
+
       return React.createElement(
         'div',
         { className: 'app' },
         React.createElement(Slide, null),
         React.createElement(SearchBar, { store: this.store }),
-        React.createElement(Search, { store: this.store }),
+        this.props.children,
         React.createElement(Player, null)
       );
     }
@@ -964,7 +1076,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".slide {\n  width: 30%;\n  background: #eee;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
+exports.push([module.i, ".slide {\n  width: 26%;\n  background: #eee;\n  position: fixed;\n  left: 0px;\n  top: 0px;\n  bottom: 0px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
 
 // exports
 
@@ -1059,7 +1171,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".login {\n  background: #fff;\n  width: 100px;\n  margin: 20px auto 20px;\n  text-align: center;\n}\n.login .avatar {\n  width: 100px;\n  height: 100px;\n  background: #ccc;\n  border-radius: 50px;\n}\n.login .user {\n  font-size: 26px;\n}\n", ""]);
+exports.push([module.i, ".login {\n  width: 100px;\n  margin: 20px auto 20px;\n  text-align: center;\n  border-bottom: 1px solid #000;\n}\n.login .avatar {\n  width: 100px;\n  height: 100px;\n  background: #ccc;\n  border-radius: 50px;\n}\n.login .user {\n  font-size: 26px;\n}\n", ""]);
 
 // exports
 
@@ -1188,7 +1300,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".menu {\n  background: #fff;\n  height: 470px;\n  width: 280px;\n  margin: 0 auto 0;\n}\n.menu .title {\n  height: 60px;\n  line-height: 60px;\n}\n.menu ul > li {\n  font-size: 18px;\n  height: 36px;\n  line-height: 36px;\n  padding-left: 24px;\n}\n", ""]);
+exports.push([module.i, ".menu {\n  width: 250px;\n  margin: 0 auto 0;\n  padding: 10px;\n  box-sizing: border-box;\n}\n.menu .title {\n  height: 60px;\n  line-height: 60px;\n  color: #999;\n}\n.menu ul > li {\n  font-size: 18px;\n  height: 38px;\n  line-height: 38px;\n  padding-left: 24px;\n}\n.menu ul > li:hover {\n  background: #17B368;\n  color: #fff;\n  border-radius: 2px;\n}\n", ""]);
 
 // exports
 
@@ -1233,13 +1345,58 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".home {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
+exports.push([module.i, ".home {\n  width: 74%;\n  position: absolute;\n  right: 0px;\n  top: 0px;\n  bottom: 0px;\n  z-index: -1;\n  padding: 10px;\n  box-sizing: border-box;\n}\n.home .banner {\n  margin-top: 60px;\n}\n.home .banner img {\n  width: 100%;\n}\n.home section {\n  width: 100%;\n  height: 320px;\n  overflow: hidden;\n}\n.home section h2 {\n  height: 70px;\n  line-height: 98px;\n  font-weight: normal;\n  font-size: 20px;\n  margin-bottom: 4px;\n}\n.home section li {\n  width: 23%;\n  height: 400px;\n  float: left;\n  margin-right: 2%;\n}\n.home section li img {\n  width: 100%;\n}\n.home .newAlbum,\n.home .hotList {\n  background: -webkit-linear-gradient(#f7f7f7, #fff);\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(22);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".search {\n  width: 70%;\n  position: absolute;\n  right: 0px;\n  top: 0px;\n  bottom: 0px;\n  background: #ccc;\n  z-index: -1;\n}\n.search li {\n  width: 30%;\n  height: 300px;\n  float: left;\n  margin-right: 10px;\n}\n.search li img {\n  width: 100%;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1253,33 +1410,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+__webpack_require__(24);
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(22);
+var Util = __webpack_require__(36);
 
-var SearchBar = function (_Component) {
-  _inherits(SearchBar, _Component);
+var SearchBar = function (_Util) {
+  _inherits(SearchBar, _Util);
 
   function SearchBar(props, msg) {
     _classCallCheck(this, SearchBar);
 
-    return _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props, msg));
-    // this.msg = msg;
+    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props, msg));
+
+    _this.state = {
+      listData: []
+    };
+    return _this;
   }
 
   _createClass(SearchBar, [{
     key: "searchEven",
     value: function searchEven() {
       var val = this.refs.searchVal.value;
-      if (/^\s+$/.test(val)) {
+      if (/^\s*$/.test(val)) {
         alert("请输入内容");
         return;
       }
-      var arr = ["123", "34", "43534", "34"];
-      var result = arr.filter(function (item) {
-        if (item.indexOf(val) >= 0) {
-          return true;
+      var arr = this.state.listData;
+      var result = arr.filter(function (obj, index) {
+        for (var key in obj) {
+          //后面再加 title条件
+          if (obj[key].indexOf(val) >= 0) {
+            return true;
+          }
         }
       });
       this.props.store.trigger("hi", result);
@@ -1291,6 +1456,7 @@ var SearchBar = function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.state.listData);
       return React.createElement(
         "div",
         { className: "searchbar" },
@@ -1302,21 +1468,32 @@ var SearchBar = function (_Component) {
         )
       );
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.ajax("data/playerlist.json", function (res) {
+        _this2.setState({
+          listData: res
+        });
+      });
+    }
   }]);
 
   return SearchBar;
-}(Component);
+}(Util);
 
 module.exports = SearchBar;
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(23);
+var content = __webpack_require__(25);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1341,7 +1518,7 @@ if(false) {
 }
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1349,13 +1526,13 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".searchbar {\n  width: 70%;\n  height: 60px;\n  position: fixed;\n  top: 0px;\n  left: 30%;\n  background: rgba(255, 255, 255, 0.5);\n}\n.searchbar input {\n  width: 400px;\n  margin: 5px auto 5px;\n  height: 40px;\n  line-height: 40px;\n  margin-left: 130px;\n}\n", ""]);
+exports.push([module.i, ".searchbar {\n  width: 74%;\n  height: 60px;\n  position: fixed;\n  top: 0px;\n  left: 26%;\n  background: rgba(255, 255, 255, 0.5);\n}\n.searchbar input {\n  width: 400px;\n  margin: 5px auto 5px;\n  height: 40px;\n  line-height: 40px;\n  margin-left: 130px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1372,7 +1549,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(25);
+__webpack_require__(27);
 
 var Player = function (_Component) {
   _inherits(Player, _Component);
@@ -1459,42 +1636,32 @@ var Player = function (_Component) {
       //原生的样式，iq能不能用
       // $scope.rate = ($scope.media[$scope.index].currentTime /$scope.media[$scope.index].duration
       var index = 0;
-      var playerStyle = {
-        float: "left",
-        width: "40px",
-        height: "40px",
-        backgroundColor: "#000",
-        marginLeft: "20px",
-        color: '#fff'
+      var playerStyle = { backgroundImage: "url(" + "img/icon/player.png" + ")" };
+      if (this.state.musicState == "off") {
+        playerStyle = { backgroundImage: "url(" + "img/icon/player.png" + ")" };
+      } else {
+        playerStyle = { backgroundImage: "url(" + "img/icon/parse.png" + ")" };
+      }
+
+      var lastStyle = {
+        backgroundImage: "url(" + "img/icon/last.png" + ")"
+      };
+      var nextStyle = {
+        backgroundImage: "url(" + "img/icon/next.png" + ")"
       };
       var barStyle = {
-        float: "left",
-        width: this.state.rate * 800 + "px",
-        height: "40px",
-        backgroundColor: "#000",
-        marginLeft: "20px"
+        width: this.state.rate * 800 + "px"
+
       };
       console.log(barStyle);
       return React.createElement(
         "div",
         { className: "player" },
         this.addAudio(),
-        React.createElement(
-          "div",
-          { style: playerStyle, onClick: this.musicPlayTogo.bind(this) },
-          "player"
-        ),
-        React.createElement(
-          "div",
-          { style: playerStyle, onClick: this.last.bind(this) },
-          "last"
-        ),
-        React.createElement(
-          "div",
-          { style: playerStyle, onClick: this.next.bind(this) },
-          "next"
-        ),
-        React.createElement("div", { style: barStyle, onClick: this.next.bind(this) })
+        React.createElement("div", { className: "last", style: lastStyle, onClick: this.last.bind(this) }),
+        React.createElement("div", { className: "pause", style: playerStyle, onClick: this.musicPlayTogo.bind(this) }),
+        React.createElement("div", { className: "next", style: nextStyle, onClick: this.next.bind(this) }),
+        React.createElement("div", { className: "bar", style: barStyle, onClick: this.next.bind(this) })
       );
     }
   }, {
@@ -1523,13 +1690,13 @@ var Player = function (_Component) {
 module.exports = Player;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(26);
+var content = __webpack_require__(28);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1554,7 +1721,7 @@ if(false) {
 }
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1562,13 +1729,13 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".player {\n  width: 100%;\n  position: fixed;\n  bottom: 0px;\n  left: 0px;\n  background: rgba(0, 0, 0, 0.2);\n  height: 80px;\n}\n", ""]);
+exports.push([module.i, ".player {\n  width: 100%;\n  position: fixed;\n  bottom: 0px;\n  left: 0px;\n  background: rgba(255, 255, 255, 0.8);\n  height: 80px;\n}\n.player .pause {\n  float: left;\n  width: 80px;\n  height: 80px;\n  background-repeat: no-repeat;\n  margin-top: 10px;\n  margin-left: 2px;\n}\n.player .last {\n  float: left;\n  width: 80px;\n  height: 80px;\n  background-repeat: no-repeat;\n  margin-top: 10px;\n  margin-left: 20px;\n  margin-top: 16px;\n}\n.player .next {\n  float: left;\n  width: 80px;\n  height: 80px;\n  background-repeat: no-repeat;\n  margin-top: 10px;\n  margin-left: 12px;\n  margin-top: 16px;\n}\n.player .bar {\n  float: left;\n  height: 10px;\n  background-color: #17B368;\n  margin-top: 30px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1585,45 +1752,138 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(28);
+var Service = function (_Component) {
+  _inherits(Service, _Component);
 
-var List = function (_Component) {
-  _inherits(List, _Component);
+  function Service(props) {
+    _classCallCheck(this, Service);
+
+    var _this = _possibleConstructorReturn(this, (Service.__proto__ || Object.getPrototypeOf(Service)).call(this, props));
+
+    _this.msg = {};
+    return _this;
+  }
+
+  _createClass(Service, [{
+    key: "on",
+    value: function on(type, fn) {
+      if (this.msg[type]) {
+        this.msg[type].push(fn);
+      } else {
+        this.msg[type] = [fn];
+      }
+    }
+  }, {
+    key: "trigger",
+    value: function trigger(type, info) {
+      if (this.msg[type]) {
+        var arrFn = Array.from(this.msg[type]);
+        for (var i = 0; i < arrFn.length; i++) {
+          this.msg[type][i](info);
+        }
+      }
+    }
+  }]);
+
+  return Service;
+}(Component);
+
+module.exports = Service;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _React = React,
+    Component = _React.Component;
+
+__webpack_require__(31);
+var Util = __webpack_require__(36);
+
+var List = function (_Util) {
+  _inherits(List, _Util);
 
   function List(props) {
     _classCallCheck(this, List);
 
-    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+
+    _this.state = {
+      listData: []
+    };
+    return _this;
   }
 
   _createClass(List, [{
+    key: "createList",
+    value: function createList() {
+
+      return this.state.listData.map(function (obj, index) {
+        return React.createElement(
+          "li",
+          { key: index },
+          React.createElement(
+            "div",
+            { className: "img" },
+            React.createElement("img", { src: "img/playerlist/" + obj.url })
+          ),
+          React.createElement(
+            "div",
+            { className: "title" },
+            obj.title
+          ),
+          React.createElement(
+            "div",
+            { className: "publisher" },
+            obj.publisher
+          )
+        );
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
         "div",
         { className: "list" },
-        React.createElement(
-          "h1",
-          null,
-          "List"
-        )
+        this.createList()
       );
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.ajax("data/playerlist.json", function (res) {
+        _this2.setState({ listData: res });
+      });
     }
   }]);
 
   return List;
-}(Component);
+}(Util);
 
 module.exports = List;
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(29);
+var content = __webpack_require__(32);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1648,100 +1908,6 @@ if(false) {
 }
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".list {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _React = React,
-    Component = _React.Component;
-
-__webpack_require__(31);
-
-var Share = function (_Component) {
-  _inherits(Share, _Component);
-
-  function Share(props) {
-    _classCallCheck(this, Share);
-
-    return _possibleConstructorReturn(this, (Share.__proto__ || Object.getPrototypeOf(Share)).call(this, props));
-  }
-
-  _createClass(Share, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        { className: "share" },
-        React.createElement(
-          "h1",
-          null,
-          "Share"
-        )
-      );
-    }
-  }]);
-
-  return Share;
-}(Component);
-
-module.exports = Share;
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(32);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./share.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./share.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1750,7 +1916,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".share {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
+exports.push([module.i, ".list {\n  width: 74%;\n  position: absolute;\n  right: 0px;\n  top: 0px;\n  bottom: 0px;\n  margin-top: 60px;\n  z-index: -1;\n  padding: 10px;\n  box-sizing: border-box;\n  margin-right: -10px;\n}\n.list li {\n  width: 22%;\n  height: 300px;\n  float: left;\n  margin-right: 3%;\n}\n.list li img {\n  width: 100%;\n}\n.list li .publisher {\n  color: #999;\n  margin-top: 6px;\n}\n", ""]);
 
 // exports
 
@@ -1762,6 +1928,15 @@ exports.push([module.i, ".share {\n  width: 70%;\n  background: #ccc;\n  height:
 "use strict";
 
 
+/***/ }),
+/* 34 */,
+/* 35 */,
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1773,88 +1948,100 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _React = React,
     Component = _React.Component;
 
-__webpack_require__(34);
+var Util = function (_Component) {
+  _inherits(Util, _Component);
 
-var Search = function (_Component) {
-  _inherits(Search, _Component);
+  function Util(props) {
+    _classCallCheck(this, Util);
 
-  function Search(props, msg) {
-    _classCallCheck(this, Search);
-
-    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props, msg));
+    return _possibleConstructorReturn(this, (Util.__proto__ || Object.getPrototypeOf(Util)).call(this, props));
   }
 
-  _createClass(Search, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        { className: "search" },
-        React.createElement(
-          "div",
-          null,
-          "Search"
-        )
-      );
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.store.on("hi", function (res) {
-        console.log(res);
-      });
+  _createClass(Util, [{
+    key: 'ajax',
+    value: function ajax(url, fn) {
+      // 创建xhr
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          console.log(xhr.status);
+          if (xhr.status === 200) {
+            console.log(xhr.status);
+            fn(JSON.parse(xhr.responseText));
+          }
+        }
+      };
+      xhr.open('GET', url, true);
+      xhr.send(null);
     }
   }]);
 
-  return Search;
+  return Util;
 }(Component);
 
-module.exports = Search;
+module.exports = Util;
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(35);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/less-loader/dist/cjs.js??ref--1-2!./search.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(undefined);
-// imports
+"use strict";
 
 
-// module
-exports.push([module.i, ".search {\n  width: 70%;\n  background: #ccc;\n  height: 700px;\n  float: left;\n  overflow: hidden;\n}\n", ""]);
-
-// exports
-
+module.exports = {
+  IMG: [{ url: "banner_01.jpg" }, { url: "banner_02.jpg" }, { url: "banner_03.jpg" }, { url: "banner_03.jpg" }],
+  SONG: [{
+    url: "01.jpg",
+    name: "Give you My .Give you My.",
+    singer: "plum"
+  }, {
+    url: "02.jpg",
+    name: "Give you My .Give you My.",
+    singer: "陈亦迅"
+  }, {
+    url: "03.jpg",
+    name: "Give you My ..",
+    singer: "A—Lin"
+  }, {
+    url: "04.jpg",
+    name: "Give you My ..",
+    singer: "hoobl"
+  }],
+  ABLUM: [{
+    url: "01.jpg",
+    name: "Give you My ..",
+    singer: "plum"
+  }, {
+    url: "02.jpg",
+    name: "Give you My ..",
+    singer: "陈亦迅"
+  }, {
+    url: "08.jpg",
+    name: "Give you My ..",
+    singer: "A—Lin"
+  }, {
+    url: "05.jpg",
+    name: "Give you My ..",
+    singer: "hoobl"
+  }],
+  HOTLIST: [{
+    url: "06.jpg",
+    name: "Give you My ..",
+    singer: "plum"
+  }, {
+    url: "11.jpg",
+    name: "Give you My ..",
+    singer: "陈亦迅"
+  }, {
+    url: "21.jpg",
+    name: "Give you My ..",
+    singer: "A—Lin"
+  }, {
+    url: "18.jpg",
+    name: "Give you My ..",
+    singer: "hoobl"
+  }]
+};
 
 /***/ })
 /******/ ]);

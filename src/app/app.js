@@ -12,12 +12,13 @@ class App extends Component {
     this.store = new Service();
   }
   render(){
-    //{this.props.children}
+    <Search store = {this.store}></Search>
+
     return (
       <div className = "app">
       <Slide ></Slide>
       <SearchBar store = {this.store}></SearchBar>
-      <Search store = {this.store}></Search>
+      {this.props.children}
       <Player></Player>
       </div>
     )

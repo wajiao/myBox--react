@@ -1,8 +1,37 @@
+.iconrule(){
+  float:left;
+  width:80px;
+  height:80px;
+  background-repeat: no-repeat;
+  margin-top: 10px;
+}
 .player{
   width: 100%;
   position: fixed;
   bottom: 0px;
   left: 0px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.8);
   height: 80px;
+  .pause{
+    .iconrule();
+    margin-left: 2px;
+    //注意，查一下
+    // background-image: url("./img/icon/player.png");
+  }
+  .last{
+    .iconrule();
+    margin-left: 20px;
+    margin-top: 16px;
+  }
+  .next{
+    .iconrule();
+    margin-left: 12px;
+    margin-top: 16px;
+  }
+  .bar{
+    float:left;
+    height:10px;
+    background-color:#17B368;
+    margin-top: 30px;
+  }
 }

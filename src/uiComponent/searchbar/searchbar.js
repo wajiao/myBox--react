@@ -1,21 +1,27 @@
-let { Component } = React;
-require("./searchbar.less");
 
-class SearchBar extends Component {
+require("./searchbar.less");
+let { Component } = React;
+let Util = require('../../util/util.js')
+class SearchBar extends Util {
   constructor(props,msg){
     super(props,msg)
-    // this.msg = msg;
+    this.state = {
+      listData:[],
+    }
   }
   searchEven(){
     let val = this.refs.searchVal.value;
-    if(/^\s+$/.test(val)){
+    if(/^\s*$/.test(val)){
       alert("请输入内容")
       return
     }
-    let arr = ["123","34","43534","34"];
-    let result = arr.filter((item)=>{
-      if(item.indexOf(val) >= 0){
-        return true
+    let arr = this.state.listData;
+    let result = arr.filter((obj,index)=>{
+      for(let key in obj){
+        //后面再加 title条件
+        if(obj[key].indexOf(val)>=0){
+          return true
+        }
       }
     })
     this.props.store.trigger("hi",result)
@@ -26,12 +32,20 @@ class SearchBar extends Component {
 
   }
   render(){
+    console.log(this.state.listData)
     return (
       <div className = "searchbar">
         <input type = "text" placeholder = "search" ref = "searchVal"/>
         <span onClick = {this.searchEven.bind(this)}>search</span>
       </div>
     )
+  }
+  componentDidMount(){
+    this.ajax("data/playerlist.json",(res)=>{
+      this.setState({
+        listData: res
+      })
+    })
   }
 }
 module.exports = SearchBar;
